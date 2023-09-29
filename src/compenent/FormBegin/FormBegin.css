@@ -1,0 +1,34 @@
+.form{
+    width: 100%;
+    justify-content: center;
+}
+.comp{
+    width: 100%;
+    display: flex;
+    list-style: none;
+    justify-content: center ;
+    background-color: darkslategray;
+}
+.compe{
+    display: flex;
+    align-items: center;
+    width: max-content;
+    height: 100vh;
+}
+.Head{
+    font-weight: bold;
+    text-align: center;
+}
+.Head:hover{
+    letter-spacing: 5px;
+    transition: 2s;
+}
+fbody{
+    text-align: center;
+}
+li{
+    list-style: none;
+}
+span:hover{
+    cursor: pointer;
+}

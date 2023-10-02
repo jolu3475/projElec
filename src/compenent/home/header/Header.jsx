@@ -4,12 +4,21 @@ import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+// import Offcanvas from 'react-bootstrap/Offcanvas';
 // eslint-disable-next-line no-unused-vars
 import React from "react";
+// import { useState } from "react";
 import "./Header.css"
 import { signOut } from 'firebase/auth';
 
 const Header = () => {
+
+    // const [show, setShow] = useState(true);
+
+    // const handleClose = () => setShow(false);
+    // const handleShow = () => setShow(true);
 
     const handleSignOut = () => {
         signOut(auth).then(() => {
@@ -50,6 +59,20 @@ const Header = () => {
                 </Navbar.Collapse>
             </Container>
         </Navbar>
+            <Container fluid>
+                <Row>
+                    <Col xs={2} id="sidebar-wrapper">      
+                    <Nav className="flex-column">
+                        <Nav.Link href="#item1">Item 1</Nav.Link>
+                        <Nav.Link href="#item2">Item 2</Nav.Link>
+                        <Nav.Link href="#item3">Item 3</Nav.Link>
+                    </Nav>
+                    </Col>
+                    <Col xs={10} id="page-content-wrapper">
+                    Main content goes here
+                    </Col>
+                </Row>
+            </Container>
     </div>
 );
 } 

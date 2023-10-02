@@ -1,50 +1,56 @@
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import Form from 'react-bootstrap/Form';
-// eslint-disable-next-line no-unused-vars
-import React, { useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+import  { useState } from "react";
 import { auth } from '../../../firebase';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
+// import { getDocumentNames, getAdminName} from './../../data/listUsr'
 
 function FormBeginSI() {
 
-  const [pollName, setpollName] = React.useState('');
-  const [email, setEmail] = React.useState('');
-  const [password, setPassword] = React.useState('');
+  const [show, setShow] = useState(false);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const navigate = useNavigate();
+
+  const togglePasswordVisibility = () => {
+    setShow(!show);
+  };
+
+  let { a } = useParams();
 
   const gotoIn = () => navigate('/');
 
-  const SignIn = (e) => {
+  const SignIn = async (e) => {
+    // const docName = await getDocumentNames(a, email);
+    // const admin = await getAdminName(a);
+    // console.log(admin);
     e.preventDefault();
-    signInWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        console.log(userCredential);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    // (admin === email || docName)? (
+      signInWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+          console.log(userCredential);
+        })
+        .catch((error) => {
+          console.log(error);
+        })
+    // ):(
+    //   alert('You are not registered')
+    // )
   }
 
   return (
     <Card className='w-100'>
-      <Card.Header className='Head'>Log to a poll</Card.Header>
+      <Card.Header className='Head'>Log to the poll {a}</Card.Header>
       <Card.Body>
         <Form onSubmit={SignIn}>
-            <Form.Group className="mb-3" controlId="formBasicEmail">
-                <Form.Label>Name of the poll</Form.Label>
-                <Form.Control 
-                  type="text" 
-                  placeholder="The poll's Name" 
-                  className='pollName' 
-                  value={pollName}
-                  onChange={(e) => setpollName(e.target.value)}
-                  required/>
-            </Form.Group>
 
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-              <Form.Label>Email address</Form.Label>
+              <Form.Label className='tl'>Email address</Form.Label>
               <Form.Control 
                 type="email" 
                 placeholder="name@example.com" 
@@ -55,15 +61,20 @@ function FormBeginSI() {
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="formBasicPassword">
-                <Form.Label>Password</Form.Label>
-                <Form.Control 
-                  type="password" 
-                  placeholder="Password" 
-                  className='pwd' 
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  required/>
+              <div className="password-container">
+                  <Form.Control 
+                    type={show ? "text" : "password"}
+                    placeholder="Password" 
+                    className='password-input' 
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    required/>
+                  <button className='eye-button' onClick={togglePasswordVisibility}>
+                    {show ? <FontAwesomeIcon icon={faEyeSlash} /> : <FontAwesomeIcon icon={faEye} />}
+                  </button>
+                </div>
             </Form.Group>
+
             <Button variant="secondary" onClick={gotoIn}>
                 Go Back
             </Button>

@@ -1,0 +1,9 @@
+#sidebar-wrapper {
+    height: 100vh;
+    background-color: #f8f9fa;
+    padding: 10px;
+  }
+  
+  #page-content-wrapper {
+    padding: 10px;
+  }

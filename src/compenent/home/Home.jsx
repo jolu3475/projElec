@@ -9,7 +9,6 @@ const Home = () => {
       <div>
         <Header />
       </div>
-      <div>Home</div>
     </div>
 );
 }   

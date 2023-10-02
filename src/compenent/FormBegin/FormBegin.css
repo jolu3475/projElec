@@ -7,17 +7,20 @@
     display: flex;
     list-style: none;
     justify-content: center ;
-    background-color: darkslategray;
+    background-color: #191919;
 }
 .compe{
     display: flex;
     align-items: center;
-    width: max-content;
+    width: 500px;
     height: 100vh;
 }
 .Head{
     font-weight: bold;
     text-align: center;
+    font-size: x-large;
+    background-color: #09443c;
+    color: white;
 }
 .Head:hover{
     letter-spacing: 5px;
@@ -26,9 +29,27 @@
 fbody{
     text-align: center;
 }
+.tl{
+    font-weight: bold;
+}
 li{
     list-style: none;
+}
+li:last-child{
+    margin-top: 10px;
+    border-top: 1px solid rgb(9, 8, 8);
 }
 span:hover{
     cursor: pointer;
 }
+.password-input {
+    flex: 1;
+}
+.eye-button {
+    margin-left: 10px;
+}
+
+.password-container {
+    display: flex;
+    justify-content: space-between;
+}  

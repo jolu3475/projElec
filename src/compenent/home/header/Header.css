@@ -1,9 +1,21 @@
 #sidebar-wrapper {
-    height: 100vh;
-    background-color: #f8f9fa;
-    padding: 10px;
-  }
-  
-  #page-content-wrapper {
-    padding: 10px;
-  }
+  height: 100vh;
+  background-color: #f8f9fa;
+  padding: 10px;
+  width: 250px;
+}
+
+#page-content-wrapper {
+  padding: 10px;
+}
+
+#sidebar-wrapper .nav-link {
+  color: #333; /* adjust as needed */
+}
+
+#sidebar-wrapper .nav-link:hover {
+  color: #007bff; 
+  letter-spacing: 2px;
+  font-size: 19px;
+  transition: 2s;
+}

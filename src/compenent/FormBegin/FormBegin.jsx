@@ -1,5 +1,3 @@
-// eslint-disable-next-line no-unused-vars
-import React, { useState } from "react";
 import Path from "../path/path";
 import './FormBegin.css'
 import { BrowserRouter } from "react-router-dom";

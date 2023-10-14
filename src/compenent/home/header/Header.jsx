@@ -3,15 +3,14 @@ import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
-import NavDropdown from 'react-bootstrap/NavDropdown';
+import { BrowserRouter as Router } from "react-router-dom";
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-// import Offcanvas from 'react-bootstrap/Offcanvas';
-// eslint-disable-next-line no-unused-vars
 import React from "react";
-// import { useState } from "react";
+import { Link } from "react-router-dom";
 import "./Header.css"
 import { signOut } from 'firebase/auth';
+import PathMain from "./../../path/pathMain"
 
 const Header = () => {
 
@@ -31,48 +30,35 @@ const Header = () => {
 
   return (
     <div>
-        <Navbar expand="lg" className="bg-body-tertiary">
-            <Container>
-                <Navbar.Brand href="#home">React-Bootstrap</Navbar.Brand>
-                <Navbar.Toggle aria-controls="basic-navbar-nav" />
-                <Navbar.Collapse id="basic-navbar-nav">
-                <Nav className="me-auto">
-                    <Nav.Link href="#home">Home</Nav.Link>
-                    <Nav.Link href="#link">Link</Nav.Link>
-                    <NavDropdown title="Dropdown" id="basic-nav-dropdown">
-                    <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
-                    <NavDropdown.Item href="#action/3.2">
-                        Another action
-                    </NavDropdown.Item>
-                    <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
-                    <NavDropdown.Divider />
-                    <NavDropdown.Item href="#action/3.4">
-                        Separated link
-                    </NavDropdown.Item>
-                    </NavDropdown>
-                    <Button 
-                        variant="dark" 
-                        onClick={handleSignOut}>
-                            Log Out
-                    </Button>
-                </Nav>
-                </Navbar.Collapse>
-            </Container>
-        </Navbar>
-            <Container fluid>
-                <Row>
-                    <Col xs={2} id="sidebar-wrapper">      
-                    <Nav className="flex-column">
-                        <Nav.Link href="#item1">Item 1</Nav.Link>
-                        <Nav.Link href="#item2">Item 2</Nav.Link>
-                        <Nav.Link href="#item3">Item 3</Nav.Link>
-                    </Nav>
-                    </Col>
-                    <Col xs={10} id="page-content-wrapper">
-                    Main content goes here
-                    </Col>
-                </Row>
-            </Container>
+      <Navbar expand="lg" className="bg-body-tertiary">
+        <Container>
+          <Navbar.Brand href="#home">e-Fidy</Navbar.Brand>
+          <Navbar.Toggle aria-controls="basic-navbar-nav" />
+          <Navbar.Collapse id="basic-navbar-nav">
+            <Nav className="ms-auto">
+              <Nav.Link as={Link} to="/">Home</Nav.Link>
+              <Button variant="dark" onClick={handleSignOut}>
+                Log Out
+              </Button>
+            </Nav>
+          </Navbar.Collapse>
+        </Container>
+      </Navbar>
+      <Container fluid>
+        <Row>
+          <Col xs={2} id="sidebar-wrapper">
+            <Nav className="flex-column">
+              <Nav.Link as={Link} to="/listElect">List of the Elector</Nav.Link>
+              <Nav.Link as={Link} to="/listCand">List of the candidat</Nav.Link>
+              <Nav.Link as={Link} to="/Election">Election</Nav.Link>
+              <Nav.Link as={Link} to="/result">Result</Nav.Link>
+            </Nav>
+          </Col>
+          <Col xs={10} id="page-content-wrapper">
+            <PathMain />
+          </Col>
+        </Row>
+      </Container>
     </div>
 );
 } 

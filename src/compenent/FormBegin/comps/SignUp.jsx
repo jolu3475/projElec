@@ -3,25 +3,21 @@ import Card from 'react-bootstrap/Card';
 import Form from 'react-bootstrap/Form';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
-// eslint-disable-next-line no-unused-vars
-import React, { useState } from "react";
-import { auth } from '../../../firebase';
-import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { useState } from "react";
 import { useNavigate } from 'react-router-dom';
-import { doc, setDoc, getDoc } from "firebase/firestore"; 
-import { db } from './../../../firebase';
+import SignUp from './SingnUp'
 
 function FormBeginSU() {
 
   const [show, setShow] = useState(false);
   const [sho, setSho] = useState(false);
 
-  const [adminName, setadminName] = React.useState(''); 
-  const [pollName, setpollName] = React.useState('');
-  const [email, setEmail] = React.useState('');
-  const [password, setPassword] = React.useState('');
-  const [password1, setPassword1] = React.useState('');
-  const [dateB, setDateB] = React.useState('');
+  const [message, setMessage] = useState('');
+  const [pollName, setpollName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [password1, setPassword1] = useState('');
+  const [dateB, setDateB] = useState('');
 
   const navigate = useNavigate();
   const gotoIn = () => navigate('/');
@@ -32,74 +28,19 @@ function FormBeginSU() {
   const togglePasswordVisibilit = () => {
     setSho(!sho);
   };
-
-  const createCollectionDocument = async (collectionName, email, pollName, adminName, dateB) => {
-    const collectionRef = doc(db, collectionName, pollName);
-    try {
-        await setDoc(collectionRef, {
-          adminName: adminName,
-          adminEmail: email,
-          pollDateBegin: dateB,
-        });
-    } catch (error) {
-        console.error("Erreur lors de la création du document de collection", error);
-    }
-  };
-
-  async function addCollectionName(collectionName) {
-    const docRef = doc(db, 'specialDocument', 'pollName');
-    const docSnap = await getDoc(docRef);
-  
-    let pollName;
-    if (docSnap.exists()) {
-      pollName = docSnap.data().pollName;
-    } else {
-      pollName = [];
-    }
-  
-    // Add the new collection name to the array
-    pollName.push(collectionName);
-  
-    // Update the document with the new array
-    await setDoc(docRef, { pollName: pollName });
-  }
-
-  const SignUp = async (e) => {
+  const add = async (e) => {
     e.preventDefault();
-    try {
-      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-      console.log(userCredential);
-      await createCollectionDocument(pollName, email, pollName, adminName,dateB);
-      await addCollectionName(pollName);
-    } catch (error) {
-      console.log(error);
+    const signUpSuccessful = await SignUp(e,password,password1,email,dateB, pollName, setMessage);
+    if (signUpSuccessful) {
+      navigate('/');
     }
-    setEmail('');
-    setadminName('');
-    setPassword('');
-    setPassword1('');
-    setpollName('');
-    setDateB('');
-    gotoIn();
-
   }
-  
 
   return (
     <Card className='w-100'>
       <Card.Header className='Head'>Create a new poll</Card.Header>
       <Card.Body>
-        <Form onSubmit={SignUp}>
-            <Form.Group className="mb-3" controlId="formBasicName">
-                <Form.Label className='tl'>Name of the admin</Form.Label>
-                <Form.Control 
-                  type="text" 
-                  placeholder="The Name of the admin" 
-                  className='adminName' 
-                  value={adminName} 
-                  onChange={(e) => setadminName(e.target.value)}
-                  required/>
-            </Form.Group>
+        <Form onSubmit={((e) => add(e))}>
 
             <Form.Group className="mb-3" controlId="formBasicEmail">
                 <Form.Label className='tl'>Name of the poll</Form.Label>
@@ -113,7 +54,7 @@ function FormBeginSU() {
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-              <Form.Label className='tl'>Email address</Form.Label>
+              <Form.Label className='tl'>Email address for the poll</Form.Label>
               <Form.Control 
                 type="email" 
                 placeholder="name@example.com" 
@@ -147,7 +88,15 @@ function FormBeginSU() {
                     placeholder="Password" 
                     className='password-input' 
                     value={password1}
-                    onChange={(e) => setPassword1(e.target.value)}
+                    onChange={(e) => {
+                      const newPassword1 = e.target.value;
+                      setPassword1(newPassword1)
+                      if (password != password1) {
+                        setMessage('Passwords do not match');
+                      }else{
+                        setMessage('good');
+                      }
+                    }}
                     required/>
                   <button className='eye-button' onClick={togglePasswordVisibility}>
                     {show ? <FontAwesomeIcon icon={faEyeSlash} /> : <FontAwesomeIcon icon={faEye} />}
@@ -158,12 +107,14 @@ function FormBeginSU() {
             <Form.Group className="mb-3" controlId="formBasicDate">
                 <Form.Label className='tl'>Date of the poll</Form.Label>
                 <Form.Control 
-                  type="date"
+                  type="datetime-local"
                   className='dateB'
                   value={dateB}
                   onChange={(e) => setDateB(e.target.value)}
                   required/> 
             </Form.Group>
+
+            {message && <p>{message}</p>}
 
             <Button variant="secondary" onClick={gotoIn}>
               Go Back

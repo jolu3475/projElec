@@ -1,33 +1,57 @@
-const SignIn = async (e, a, firstName, lastName, email, password, Type) => {
-    e.preventDefault();
+import { db } from './../../../firebase';
+import { getDoc, doc, updateDoc, setDoc, arrayUnion } from "firebase/firestore";
+import { loginUser, registerUser } from './../../data/logDetails';
+
+class User {
+    constructor(firstName, lastName, email, type) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.type = type;
+        if (type === 'candidate') {
+            this.count = 0;
+        }
+    }
+}
+
+const SignIn = async (a, firstName, lastName, email, password, Type) => {
     // Fetch the 'userName' document from the collection named 'a'
-    const docRef = doc(db, a, "userName");
+    const docRef = doc(db, a, "User");
     const docSnap = await getDoc(docRef);
 
     if (docSnap.exists()) {
         // Get the array field from the document
-        const emailArray = docSnap.data().yourArrayField; // replace 'yourArrayField' with the actual field name
+        const emailArray = docSnap.data().user; 
 
         // Check if the email exists in the array
-        const doesEmailExist = emailArray.includes(email);
+        if (emailArray.includes(email)) {
+            return { success: false, message: "This user has already created an account" };
+        }
 
-        if (!doesEmailExist) {
         // Register the user
-        await registerUser(email, password);
+        try {
+            await registerUser(email, password);
+        } catch (error) {
+            console.error("Registration failed:", error);
+            return { success: false, message: "Registration failed" };
+        }
 
-        // Add the email to the array in the document
+        // Add the email to the array in the document only if it doesn't already exist
         await updateDoc(docRef, {
-            yourArrayField: arrayUnion(email) // replace 'yourArrayField' with the actual field name
+            user: arrayUnion(email) 
         });
 
-        return true;
-        } else {
-        console.log("Email already exists!");
-        return false;
-        }
+        // Create a new 'User' document
+        const user = new User(firstName, lastName, email, Type);
+        const userDocRef = doc(db, a, email);
+        await setDoc(userDocRef, user);
+
+        return { success: true, message: "User registered successfully" };
     } else {
         console.log("No such document!");
-        return false;
+        // Handle the case when the document doesn't exist
+        // This depends on your application's requirements
     }
-  };
-  export default SignIn;
+};
+
+export default SignIn;

@@ -1,36 +1,26 @@
-import './App.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import FormBegin from './compenent/FormBegin/FormBegin';
-import { auth } from './firebase';
-import { useState, useEffect } from 'react';
-import Home from './compenent/home/Home';
-
+import './App.css'
+import 'bootstrap/dist/css/bootstrap.min.css'
+import FormBegin from './compenent/FormBegin/FormBegin'
+import { auth } from './firebase'
+import { useState, useEffect } from 'react'
+import Home from './compenent/home/Home'
 
 function App() {
-
-  const [user, setUser] = useState(null); 
-
+  const [user, setUser] = useState(null)
 
   useEffect(() => {
     const status = auth.onAuthStateChanged((user) => {
       if (user) {
-        setUser(user);
+        setUser(user)
       } else {
-        setUser(null);
+        setUser(null)
       }
-    });
+    })
 
-    return () => status();
-  }, []);
-  return (
-    <div>
-      {user ? (
-        <Home />
-      ) : (
-        <FormBegin />
-      )}
-    </div>
-  )
+    return () => status()
+  }, [])
+  return <div>{user ? <Home /> : <FormBegin />}</div>
+  // return <div>{<Home />}</div>
 }
 
-export default App;
+export default App

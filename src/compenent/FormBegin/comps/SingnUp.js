@@ -2,7 +2,7 @@ import { db } from './../../../firebase';
 import { collection, getDocs, getDoc, addDoc, doc, updateDoc, setDoc } from "firebase/firestore";
 import { registerUser } from './../../data/logDetails';
 
-const SignUp = async (e, password, password1, email, dateB, pollName, setMessage) => {
+const SignUp = async (password, password1, email, dateB, pollName, setMessage) => {
     e.preventDefault();
     if (password !== password1) {
         alert("Passwords do not match");
@@ -52,6 +52,10 @@ const SignUp = async (e, password, password1, email, dateB, pollName, setMessage
     }
     const aboutDocRef = doc(pollCollectionRef, 'About');
     await setDoc(aboutDocRef, About);
+
+    const userNameDocRef = doc(collection(db, pollName), 'UserName');
+    await setDoc(userNameDocRef, { userName: arrayUnion(email) }, { merge: true });
+
     return true;
 }
 

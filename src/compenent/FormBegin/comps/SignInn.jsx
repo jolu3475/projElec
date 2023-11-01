@@ -9,6 +9,7 @@ import { useNavigate, useParams } from 'react-router-dom'
 import SignIn from './SignIn'
 
 function FormBeginSi() {
+  const [id, setId] = useState('')
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
   const [show, setShow] = useState(false)
@@ -37,6 +38,7 @@ function FormBeginSi() {
     e.preventDefault()
     const signInSuccessful = await SignIn(
       a.a,
+      id,
       firstName,
       lastName,
       email,
@@ -53,6 +55,18 @@ function FormBeginSi() {
       <Card.Header className="Head">Registrer to the poll {a.a}</Card.Header>
       <Card.Body>
         <Form onSubmit={handleSubmit}>
+          <Form.Group className="mb-3" controlId="Matricule">
+            <Form.Label className="tl">Id of the user</Form.Label>
+            <Form.Control
+              type="text"
+              placeholder="first name"
+              className="Matricule"
+              value={id}
+              onChange={(e) => setId(e.target.value)}
+              required
+            />
+          </Form.Group>
+
           <Form.Group className="mb-3" controlId="firstName">
             <Form.Label className="tl">First name address</Form.Label>
             <Form.Control

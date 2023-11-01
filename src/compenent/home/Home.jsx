@@ -1,15 +1,15 @@
-import "./Home.css"
-import Header from "./header/Header";
-import { BrowserRouter as Router } from "react-router-dom";
+import './Home.css'
+import Header from './header/Header'
+import { BrowserRouter as Router } from 'react-router-dom'
 
 const Home = () => {
   return (
-    <div className="full">
+    <div>
       <Router>
         <Header />
       </Router>
     </div>
-);
-}   
+  )
+}
 
-export default Home;
+export default Home

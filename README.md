@@ -10,7 +10,7 @@ Currently, two official plugins are available:
 
 # Installation of the project
 
-Before foing anything check if you already have node install on your device
+Before foing anything check if you already have node install on your device.
 To install this project you need :
 - to enter the file you want to store the projeect in your terminal
 - then after you have to clone the project with the command "git clone https://github.com/jolu3475/projElec.git"

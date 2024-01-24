@@ -2,6 +2,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    overflow: hidden;
 }
 .parent{
     display: flex;
@@ -12,15 +13,30 @@
 .header{
 
 }
-.log{
-    right: 0;
-}
-/* for the left-side */
+/* The main structure */
 .cont{
     flex: 1;
     overflow: auto;
 }
-/* for the right-side */
+/* for the left-side */
 .le{
     height: 100%;
+}
+/* for the right-side */
+.ri{
+    overflow: auto;
+    padding: 0;
+    background-color: #F8F8F9;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+h1{
+    text-align: center;
+}
+.full{
+    height: 600px;
+    width: 100%;
+    overflow: auto;
+    padding: 10px 20px;
 }

@@ -12,11 +12,15 @@ const Main = () => {
         className="mb-3"
         justify
       >
-        <Tab eventKey="home" title="Home">
-          <ListVot />
+        <Tab eventKey="home" title="List of the Elector">
+          <div className="full">
+            <ListVot />
+          </div>
         </Tab>
-        <Tab eventKey="profile" title="Profile">
-          <ListCand />
+        <Tab eventKey="profile" title="List of the condidates">
+          <div className="full">
+            <ListCand />
+          </div>
         </Tab>
       </Tabs>
     </>

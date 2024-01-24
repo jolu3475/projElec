@@ -1,4 +1,4 @@
-const Result = () => {
+const Polling = () => {
   return (
     <>
       <h1>Result of the poll</h1>
@@ -6,4 +6,4 @@ const Result = () => {
   )
 }
 
-export default Result
+export default Polling

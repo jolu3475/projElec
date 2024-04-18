@@ -1,42 +1,48 @@
+/* All the page */
 *{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     overflow: hidden;
 }
-.parent{
+.all{
     display: flex;
-    flex-direction: column;
-    height: 100vh;
-}
-/* for the header */
-.header{
-
-}
-/* The main structure */
-.cont{
-    flex: 1;
-    overflow: auto;
-}
-/* for the left-side */
-.le{
-    height: 100%;
-}
-/* for the right-side */
-.ri{
-    overflow: auto;
-    padding: 0;
-    background-color: #F8F8F9;
-    display: flex;
-    flex-direction: column;
-    height: 100vh;
-}
-h1{
-    text-align: center;
-}
-.full{
-    height: 600px;
     width: 100%;
-    overflow: auto;
-    padding: 10px 20px;
+    height: 100vh;
+    flex-direction: column;
+}
+/* Header */
+.head{
+    width: 100%;
+    order: 1;
+    margin:0;
+    padding: 0;
+}
+/* Body */
+.body{
+    order: 2;
+    flex-grow: 1;
+    overflow: hidden;
+    width: 100%;
+    padding: 0;
+}
+.left{
+    padding: 10px;
+}
+.right{
+    padding: 10px;
+    height: 100vh;
+    border-left: 1px solid black;
+}
+/* footer */
+.foot{
+    order: 3;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+.f{
+    justify-content: center;
+    display: flex;
+    padding: auto;
 }

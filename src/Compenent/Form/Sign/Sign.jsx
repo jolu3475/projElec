@@ -16,6 +16,7 @@ const Sign = () => {
   const [password, setPassword] = useState('')
   const [cpassword, setCPassword] = useState('')
   const [der, setDer] = useState('')
+  const [slogan, setSlogan] = useState('')
   const [test, setTest] = useState(false)
   const [error, setError] = useState()
   const [testPass, setTestPass] = useState({ match: false, length: false })
@@ -93,10 +94,21 @@ const Sign = () => {
                 <InputGroup.Text>Check to view the password</InputGroup.Text>
               </InputGroup>
               <Deroulante value={der} setValue={setDer} />
+              {der !== '' && der === 'contender' ? (
+                <Insert
+                  title="Slogan"
+                  fieldText="text"
+                  value={slogan}
+                  setValue={setSlogan}
+                  holder="Slogan of the contender"
+                />
+              ) : (
+                <></>
+              )}
               <Button
                 onClick={(e) => {
                   e.preventDefault
-                  signin(poll, email, username, password, der)
+                  signin(poll, email, username, password, der, slogan)
                   Cookies.set('pollname', poll)
                   Navigate('/')
                 }}

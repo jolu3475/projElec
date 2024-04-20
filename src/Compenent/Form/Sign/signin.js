@@ -38,18 +38,23 @@ const cemail = async (email, password) => {
   })
 }
 
-const document = async (pollname, email, username, der) => {
+const document = async (pollname, email, username, der, slogan) => {
   const service = new Service()
+  let ne
 
-  const data = await service.createDocInCollection(
-    {
+  if (der === 'contender') {
+    ne = {
       email: email,
       username: username,
       type: der,
-    },
-    pollname,
-    email,
-  )
+      slogan: slogan,
+      poll: false,
+    }
+  } else {
+    ne = { email: email, username: username, type: der, poll: false }
+  }
+
+  const data = await service.createDocInCollection(ne, pollname, email)
 
   if (data.error) {
     return {
@@ -157,12 +162,12 @@ const document = async (pollname, email, username, der) => {
   }
 }
 
-const signin = async (pollname, email, username, password, der) => {
+const signin = async (pollname, email, username, password, der, slogan) => {
   console.log(pollname, email, username, der, password)
   try {
     await cemail(email, password)
     try {
-      const data = await document(pollname, email, username, der)
+      const data = await document(pollname, email, username, der, slogan)
       return data
     } catch (err) {
       console.error(err)

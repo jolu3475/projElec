@@ -46,73 +46,84 @@ const Poll = () => {
       <Container>
         <div className="to">
           <Row minbreakpoint={['lg']}>
-            <Col className="le">
+            <Col className="le" sm={6}>
               <Title title="Create a poll" />
             </Col>
-            <Col className="ri">
-              <Insert
-                title="Email"
-                fieldText="email"
-                value={email}
-                setValue={setEmail}
-                holder="exemple@exemple.com"
-              />
-              <Insert
-                title="Pollname"
-                fieldText="text"
-                value={pollname}
-                setValue={setPollname}
-                holder="the name of the poll"
-              />
-              {pollname !== '' ? error : <></>}
-              <Insert
-                title="Date"
-                fieldText="date"
-                value={date}
-                setValue={setDate}
-              />
-              <Insert
-                title="Password"
-                fieldText={test ? 'text' : 'password'}
-                value={password}
-                setValue={setPassword}
-                holder="Please enter your password"
-              />
-              <Insert
-                title="Confirmation Password"
-                fieldText={test ? 'test' : 'password'}
-                value={cpassword}
-                setValue={setCPassword}
-                holder="Confirm your password"
-              />
-              <InputGroup className="mb-3">
-                <InputGroup.Checkbox
-                  value={test}
-                  onClick={() => {
-                    setTest(!test)
-                  }}
-                  aria-label="Checkbox for following text input"
+            <Col className="ri" sm={6}>
+              <Row>
+                <Insert
+                  title="Email"
+                  fieldText="email"
+                  value={email}
+                  setValue={setEmail}
+                  holder="exemple@exemple.com"
                 />
-                <InputGroup.Text>Check to view the password</InputGroup.Text>
-              </InputGroup>
-              {cpassword !== '' ? <PasswordCheck testPass={testPass} /> : <></>}
-              <Button
-                onClick={async (e) => {
-                  e.preventDefault()
-                  try {
-                    await create(email, pollname, password, date)
-                    navigate('/')
-                    Cookies.set('pollname', pollname)
-                  } catch (error) {
-                    console.error('Error in onClick handler:', error)
+                <Insert
+                  title="Pollname"
+                  fieldText="text"
+                  value={pollname}
+                  setValue={setPollname}
+                  holder="the name of the poll"
+                />
+                {pollname !== '' ? error : <></>}
+                <Insert
+                  title="Date"
+                  fieldText="date"
+                  value={date}
+                  setValue={setDate}
+                />
+                <Insert
+                  title="Password"
+                  fieldText={test ? 'text' : 'password'}
+                  value={password}
+                  setValue={setPassword}
+                  holder="Please enter your password"
+                />
+                <Insert
+                  title="Confirmation Password"
+                  fieldText={test ? 'test' : 'password'}
+                  value={cpassword}
+                  setValue={setCPassword}
+                  holder="Confirm your password"
+                />
+                <InputGroup className="mb-3">
+                  <InputGroup.Checkbox
+                    value={test}
+                    onClick={() => {
+                      setTest(!test)
+                    }}
+                    aria-label="Checkbox for following text input"
+                  />
+                  <InputGroup.Text>Check to view the password</InputGroup.Text>
+                </InputGroup>
+                {cpassword !== '' ? (
+                  <PasswordCheck testPass={testPass} />
+                ) : (
+                  <></>
+                )}
+                <Button
+                  onClick={async (e) => {
+                    e.preventDefault()
+                    try {
+                      await create(email, pollname, password, date)
+                      navigate('/')
+                      Cookies.set('pollname', pollname)
+                    } catch (error) {
+                      console.error('Error in onClick handler:', error)
+                    }
+                  }}
+                  disabled={
+                    !testPass.lenght || !testPass.match || !email || !pollname
                   }
-                }}
-                disabled={
-                  !testPass.lenght || !testPass.match || !email || !pollname
-                }
-              >
-                Create
-              </Button>
+                >
+                  Create
+                </Button>
+              </Row>
+              <Row>
+                <Button variant="dark" onClick={() => navigate('/')}>
+                  Go Back
+                </Button>
+              </Row>
             </Col>
           </Row>
         </div>

@@ -20,10 +20,10 @@ const Log = () => {
     <>
       <Container>
         <Row>
-          <Col>
+          <Col sm={6}>
             <Title title={title} />
           </Col>
-          <Col>
+          <Col sm={6}>
             <Row>
               <Insert
                 title="email"

@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 const Insert = ({ title, fieldText, value, setValue, holder }) => {
   return (
     <>
-      <Row>
+      <Row className=" p-2">
         <Col xs={3}>
           <Form.Label column>{title}</Form.Label>
         </Col>

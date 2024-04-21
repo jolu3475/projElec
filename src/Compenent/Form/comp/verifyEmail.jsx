@@ -14,8 +14,7 @@ const ValueVerify = ({ email, collname, val }) => {
       if (result.error) {
         console.error(result.message)
       } else {
-        const emailExistsInArray = result.data.pollname.includes(email)
-        console.log(emailExistsInArray)
+        const emailExistsInArray = result.data.email.includes(email)
         setEmailExists(emailExistsInArray)
       }
     } catch (error) {

@@ -9,10 +9,10 @@ const Begin = () => {
     <>
       <Container>
         <Row>
-          <Col>
+          <Col sm={6}>
             <Title title="Welcome to the poll next gen" />
           </Col>
-          <Col>
+          <Col sm={6}>
             <Row>
               <ListPoll />
             </Row>

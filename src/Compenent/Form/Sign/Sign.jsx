@@ -48,10 +48,10 @@ const Sign = () => {
     <>
       <Container>
         <Row>
-          <Col>
+          <Col sm={6}>
             <Title title={ti} />
           </Col>
-          <Col>
+          <Col sm={6}>
             <Row>
               {cpassword !== '' ? <PasswordCheck testPass={testPass} /> : <></>}
               <Insert
@@ -112,6 +112,15 @@ const Sign = () => {
                   Cookies.set('pollname', poll)
                   Navigate('/')
                 }}
+                disabled={
+                  !testPass.match ||
+                  !testPass.length ||
+                  email === '' ||
+                  username === '' ||
+                  password === '' ||
+                  cpassword === '' ||
+                  der === ''
+                }
               >
                 Create
               </Button>

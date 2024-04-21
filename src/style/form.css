@@ -57,6 +57,9 @@
 .child{
     padding: 20px;
 }
+.ri{
+    height: 75%;
+}
 /* Foot of the page */
 .foot{
     width: 100%;
